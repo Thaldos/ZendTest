@@ -14,15 +14,21 @@ class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $hits = [
-            '2019-06-01' => 6,
-            '2019-06-02' => 8,
-            '2019-06-03' => 7,
-            '2019-06-04' => 10,
-        ];
+        $hits = [];
 
-        return new ViewModel([
-            'hits' => $hits,
-        ]);
+        // Get numbers of lines by day :
+        $contentJson = file_get_contents($fileName);
+        if ($contentJson !== false) {
+            $content = json_decode($contentJson, true);
+            if (empty($content)) {
+                $hits = $content;
+            }
+        }
+
+        return new ViewModel(
+            [
+                'hits' => $hits,
+            ]
+        );
     }
 }
