@@ -9,17 +9,17 @@ namespace Application\Controller;
 
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
+use Zend\Cache\Storage\Adapter\Filesystem;
 
 class IndexController extends AbstractActionController
 {
     public function indexAction()
     {
-        $hits = [
-            '2019-06-01' => 6,
-            '2019-06-02' => 8,
-            '2019-06-03' => 7,
-            '2019-06-04' => 10,
-        ];
+        // Get Zend cache service :
+        $cache = new Filesystem();
+
+        // Get visites by days :
+        $hits = json_decode($cache->getItem('visitesbydays'), true);
 
         return new ViewModel([
             'hits' => $hits,
