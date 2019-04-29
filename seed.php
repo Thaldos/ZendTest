@@ -18,7 +18,7 @@ $visitesByDays = [];
 
 foreach ($days as $day) {
     $file = fopen(__DIR__ . '/data/cache/' . $day . '.log', 'w');
-    $count = mt_rand(300, 900);
+    $count = mt_rand(300000, 900000);
 
     for ($i = 0; $i < $count; $i++) {
         $date = new DateTime($day, new DateTimeZone('UTC'));
